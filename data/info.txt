@@ -1,0 +1,1 @@
+This file is a cheap way to ensure that git builds this directory.
