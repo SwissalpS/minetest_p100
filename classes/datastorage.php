@@ -70,11 +70,10 @@ class DataStorage {
 
 	public function bookmarkFleet($sUserID, $sFleetID, $sName) {
 
-		$aFleet = $this->getFleetArray($sUserID, $sFleetID);
-		if (!$aFleet) return null;
+		$aIDs = $this->engineIDs($sUserID, $sFleetID);
+		if (!$aIDs) return null;
 
 		$aBookmark = array();
-		$aIDs = array_keys($aFleet['engines']);
 		foreach ($aIDs as $sEngineID) {
 
 			$aPos = $this->getPos($sUserID, $sFleetID, $sEngineID);
@@ -95,10 +94,9 @@ class DataStorage {
 
 	public function changeFleetRadius($sUserID, $sFleetID, $iRadius) {
 
-		$aFleet = $this->getFleetArray($sUserID, $sFleetID);
-		if (!$aFleet) return null;
+		$aIDs = $this->engineIDs($sUserID, $sFleetID);
+		if (!$aIDs) return null;
 
-		$aIDs = array_keys($aFleet['engines']);
 		foreach ($aIDs as $sEngineID) {
 
 			$aPos = $this->getGotoPos($sUserID, $sFleetID, $sEngineID);
@@ -116,12 +114,21 @@ class DataStorage {
 	} // changeFleetRadius
 
 
-	public function fleetFormationGrid($sUserID, $sFleetID, $aPos, $aGrid) {
+	public function engineIDs($sUserID, $sFleetID) {
 
 		$aFleet = $this->getFleetArray($sUserID, $sFleetID);
-		if (!$aFleet) return null;
+		if ((!$aFleet) or (!isset($aFleet['engines']))) return null;
 
-		$aIDs = array_keys($aFleet['engines']);
+		return array_keys($aFleet['engines']);
+
+	} // engineIDs
+
+
+	public function fleetFormationGrid($sUserID, $sFleetID, $aPos, $aGrid) {
+
+		$aIDs = $this->engineIDs($sUserID, $sFleetID);
+		if (!$aIDs) return null;
+
 		$iTotal = count($aIDs);
 		if (!$iTotal) return null;
 		$iIndex = 0;
