@@ -85,7 +85,7 @@ class Listing extends App {
 
 		static $oApp;
 		if (!isset($oApp)) {
-			$oApp = new List();
+			$oApp = new Listing();
 		}
 
 		return $oApp;
