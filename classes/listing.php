@@ -1,7 +1,7 @@
 <?php
 require_once(Sp100pATHcLASSES . 'core.php');
 
-class List extends App {
+class Listing extends App {
 
 	protected $aPos;
 
@@ -92,5 +92,5 @@ class List extends App {
 
 	} // so
 
-} // List
+} // Listing
 ?>
