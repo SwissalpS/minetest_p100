@@ -149,7 +149,7 @@ class Nic extends App {
 
 		$sOut = 'ok';
 		if ($mPos) {
-			if (!self::isSamePos()) {
+			if (!self::isSamePos($mPos, $this->aPos)) {
 				$sOut .= $mPos['r'] . '|' . $mPos['x'] . '|' . $mPos['y'] . '|' . $mPos['z'];
 			}
 		} // got a goto pos
