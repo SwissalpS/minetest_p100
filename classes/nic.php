@@ -68,7 +68,9 @@ class Nic extends App {
 			if ($this->oData->bookmarkFleet($this->oAuth->id(),
 				$this->aID['fleetID'], $sName)) {
 				$bChanged = true;
-			} else $this->ko(404);
+			} else {
+				$this->ko(404);
+			}
 
 		} elseif ('2bf' == $this->sCommand) {
 			// move fleet to bookmark
@@ -79,7 +81,9 @@ class Nic extends App {
 			if ($this->oData->toFleetBookmark($this->oAuth->id(),
 				$this->aID['fleetID'], $sName)) {
 				$bChanged = true;
-			} else $this->ko(404);
+			} else {
+				$this->ko(404);
+			}
 
 		} elseif ('crf' == $this->sCommand) {
 			// change radius on all fleet engines
@@ -92,7 +96,9 @@ class Nic extends App {
 			if ($this->oData->changeFleetRadius($this->oAuth->id(),
 				$this->aID['fleetID'], $iRadius)) {
 				$bChanged = true;
-			} else $this->ko(404);
+			} else {
+				$this->ko(404);
+			}
 
 		} elseif ('ffg' == $this->sCommand) {
 			// arrange fleet in grid formation
@@ -129,7 +135,9 @@ class Nic extends App {
 			if ($this->oData->fleetFormationGrid($this->oAuth->id(),
 				$this->aID['fleetID'], $this->aPos, $aGrid)) {
 				$bChanged = true;
-			} else $this->ko(404);
+			} else {
+				$this->ko(404);
+			}
 
 		} // switch command
 
@@ -191,7 +199,7 @@ class Nic extends App {
 
 		static $aCommands;
 		if (!isset($aCommands)) {
-			$aCommands = array_merge(array('cp', 'bf', '2bf', 'crf'), parent::validCommands());
+			$aCommands = array_merge(array('cp', 'bf', '2bf', 'crf', 'ffg'), parent::validCommands());
 
 		}
 		return $aCommands;
