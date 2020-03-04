@@ -11,15 +11,11 @@ class Listing extends App {
 
 		// id fleetID-engineID-areaIDofScout
 		$aParts = explode('-', $_GET['id']);
-		if (3 !== count($aParts)) $this->ko();
+		if (1 > count($aParts)) $this->ko();
 		// validate ids
 		if (!self::isAlphaNumericString($aParts[0])) $this->ko();
-		if (!self::isAlphaNumericString($aParts[1])) $this->ko();
-		if (!self::isAlphaNumericString($aParts[2])) $this->ko();
 		$this->aID = array(
-			'fleetID' => $aParts[0],
-			'engineID' => $aParts[1],
-			'areaID' => $aParts[2]
+			'fleetID' => $aParts[0]
 		);
 
 	} // checkRequest
