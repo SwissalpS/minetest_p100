@@ -5,7 +5,7 @@ require_once(Sp100pATHcLASSES . 'listing.php');
 
 // only handle GET requests
 if (!Listing::isGet()) Listing::ko();
-// init and run NIC interface
+// init and run Listing interface
 Listing::so()->run();
 
 ?>
