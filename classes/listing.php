@@ -25,10 +25,10 @@ class Listing extends App {
 	
 		$sUserID = $this->oAuth->id();
 		$sFleetID = $this->aID['fleetID'];
-	
-		$aFleet = $this->oData->getFleetArray($sUserID, $sFleetID);
-		if ((!$aFleet) or (!isset($aFleet['engines']))) $this->ko();
-		$aEngines = array_keys($aFleet['engines']);
+
+		$aEngines = $this->oData->engineIDs($sUserID, $sFleetID);
+		if (!$aEngines) $this->ko();
+
 		$sOut = '<table>';
 		
 		foreach ($aEngines as $sEngineID) {
