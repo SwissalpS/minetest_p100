@@ -172,6 +172,16 @@ class DataStorage {
 	} // getFleetArray
 
 
+	public function getFleetBookmarks($sUserID, $sFleetID) {
+
+		$aFleet = $this->getFleetArray($sUserID, $sFleetID);
+		if (!isset($aFleet['bookmarks'])) return null;
+
+		return $aFleet['bookmarks'];
+
+	} // getFleetBookmarks
+
+
 	public function getGotoPos($sUserID, $sFleetID, $sEngineID) {
 
 		$aEngine = $this->getEngineArray($sUserID, $sFleetID, $sEngineID);
