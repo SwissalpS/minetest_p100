@@ -76,6 +76,13 @@ SssSp100.createMarkers = function() {
 	var iCount, lMarker;
 	var oMarker, oPos, oPosDir;
 
+	for (var sKey in this.aCurrentPosDB) {
+		// check if the property/key is defined in the object itself, not in parent
+		if (this.aCurrentPosDB.hasOwnProperty(sKey)) {
+		    console.log(sKey, this.aCurrentPosDB[sKey]);
+		}
+    } // loop all engines
+
 	// create markers
 
 	for(iCount = 0; iCount < this.aMarkerDB.length; iCount++) {
