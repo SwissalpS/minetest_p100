@@ -43,7 +43,7 @@ class Maping extends App {
 			$mPos = $this->oData->getGotoPos($sUserID, $sFleetID, $sEngineID);
 			if (!$mPos) continue;
 
-			$sGotoPosDB[$sEngineID] = $mPos;
+			$aGotoPosDB[$sEngineID] = $mPos;
 
 		} // loop all engines in fleet
 
