@@ -92,7 +92,7 @@ SssSp100.createMarkers = function() {
 		if (this.aCurrentPosDB.hasOwnProperty(sKey)) {
 
 			aPos = this.aCurrentPosDB[sKey];
-			dOptions.title = sKey + '<br>r: ' + aPos['r'] + ' x: ' + aPos['x']
+			dOptions.title = sKey + '\nr: ' + aPos['r'] + ' x: ' + aPos['x']
 				+ ' y: ' + aPos['y'] + ' z: ' + aPos['z'];
 
 			oPos = [ aPos['z'], aPos['x'] ];
@@ -114,7 +114,7 @@ SssSp100.createMarkers = function() {
 		if (this.aGotoPosDB.hasOwnProperty(sKey)) {
 
 			aPos = this.aGotoPosDB[sKey];
-			dOptions.title = sKey + '<br>r: ' + aPos['r'] + ' x: ' + aPos['x']
+			dOptions.title = sKey + '\nr: ' + aPos['r'] + ' x: ' + aPos['x']
 				+ ' y: ' + aPos['y'] + ' z: ' + aPos['z'];
 
 			oPos = [ aPos['z'], aPos['x'] ];
