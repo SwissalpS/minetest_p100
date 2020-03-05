@@ -1,4 +1,5 @@
-var SssSp100 = { aMarkerDB: [], dLayersOverlay: {}, layers: {}, layersBookmarks: {}, aMarkers: [] };
+var SssSp100 = { aBookmarksDB: {}, aCurrentPosDB: {}, aGotoPosDB: {}, dLayersOverlay: {},
+	layers: {}, layersBookmarks: {}, aMarkersCurrent: [], aMarkersGoto: []};
 
 //console.log('version 20200304_0231');
 
@@ -74,41 +75,58 @@ SssSp100.clearMarkers = function() {
 SssSp100.createMarkers = function() {
 
 	var iCount, lMarker;
-	var oMarker, oPos, oPosDir;
+	var oMarker, aPos, oPos;
+
+	var dOptions = {
+		alt: '',
+		riseOnHover: true,
+		title: '',
+		zIndexOffset: 0
+	};
+
+	// create markers for current positions
 
 	for (var sKey in this.aCurrentPosDB) {
+
 		// check if the property/key is defined in the object itself, not in parent
 		if (this.aCurrentPosDB.hasOwnProperty(sKey)) {
-		    console.log(sKey, this.aCurrentPosDB[sKey]);
+
+			aPos = this.aCurrentPosDB[sKey];
+			dOptions.title = sKey + '<br>r: ' + aPos['r'] + ' x: ' + aPos['x']
+				+ ' y: ' + aPos['y'] + ' z: ' + aPos['z'];
+
+			oPos = [ aPos['z'], aPos['y'] ];
+
+			oMarker = L.marker(oPos, dOptions);
+
+			oMarker.addTo(this.layers.groupCurrentPos);
+
+			this.aMarkersCurrent[sKey] = oMarker;
+
 		}
-    } // loop all engines
+	} // loop all engines
 
-	// create markers
+	// create markers for go-to positions
 
-	for(iCount = 0; iCount < this.aMarkerDB.length; iCount++) {
+	for (var sKey in this.aGotoPosDB) {
 
-		lMarker = this.aMarkerDB[iCount];
+		// check if the property/key is defined in the object itself, not in parent
+		if (this.aGotoPosDB.hasOwnProperty(sKey)) {
 
-		dLayerIcon = this.layerForMarkerType(lMarker.typeID);
+			aPos = this.aGotoPosDB[sKey];
+			dOptions.title = sKey + '<br>r: ' + aPos['r'] + ' x: ' + aPos['x']
+				+ ' y: ' + aPos['y'] + ' z: ' + aPos['z'];
 
-		if (dLayerIcon.hasCustomIcon) {
-			lMarker.options['icon'] = this.gtaVCicon(lMarker.typeID);
-		} // if got icon
+			oPos = [ aPos['z'], aPos['y'] ];
 
-		oPos = this.coordTransformMineTestToLeaflet(lMarker.posX, lMarker.posY);
+			oMarker = L.marker(oPos, dOptions);
 
-		oMarker = L.marker(oPos, lMarker.options);
-		//oMarker.bindPopup(this.popupFormForID(iCount));
+			oMarker.addTo(this.layers.groupGoto);
 
-		//oMarker.on('dragend', this.updateCoordinatesOfMarkersPopup, this);
-		//oMarker.on('mouseover', this.onMarkerMouseEntered, this);
-		//oMarker.on('mouseout', this.onMarkerMouseExited, this);
+			this.aMarkersGoto[sKey] = oMarker;
 
-		this.aMarkers[iCount] = oMarker;
-
-	} // loop all markers adding them to their layer group
-
-	this.newestMarker = oMarker;
+		}
+	} // loop all engines
 
 } // createMarkers
 
@@ -281,22 +299,3 @@ SssSp100.redraw = function() {
 	return this;
 
 } // redraw
-/*
-			var dOptions = {
-				alt: '',
-				riseOnHover: true,
-				title: '-32k,-32k',
-				zIndexOffset: 0
-			};
-			var oMarker0 = L.marker([-32000, -32000], dOptions).addTo(oLayerGoto);
-			dOptions.title = '-31.999k,-31.999k';
-			var oMarker3 = L.marker([-31999, -31999], dOptions).addTo(oLayerGoto);
-			dOptions.title = '-32k,-31.999k';
-			var oMarker3 = L.marker([-32000, -31999], dOptions).addTo(oLayerGoto);
-			dOptions.title = '32k,-32k';
-			var oMarker1 = L.marker([32000, -32000], dOptions).addTo(oLayerGoto);
-			dOptions.title = '32k,32k';
-			var oMarker2 = L.marker([32000, 32000], dOptions).addTo(oLayerGoto);
-			dOptions.title = '-32k,32k';
-			var oMarker3 = L.marker([-32000, 32000], dOptions).addTo(oLayerGoto);
-*/
