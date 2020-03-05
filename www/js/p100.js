@@ -1,5 +1,6 @@
 var SssSp100 = { aBookmarksDB: {}, aCurrentPosDB: {}, aGotoPosDB: {}, dLayersOverlay: {},
-	layers: {}, layersBookmarks: {}, aMarkersCurrent: [], aMarkersGoto: []};
+	layers: {}, dLayersBookmarks: {}, aMarkersCurrent: [], aMarkersGoto: [],
+	dMarkersBookmarks: {}};
 
 //console.log('version 20200304_0231');
 
@@ -18,7 +19,15 @@ SssSp100.addControlLayer = function() {
 		'Goto':					this.layers.groupGoto,
 	};
 
-	// TODO: dynamically add bookmarks layers
+	// dynamically add bookmarks layers
+
+	for (var sKey in this.dLayersBookmarks) {
+		if (this.dLayersBookmarks.hasOwnProperty(sKey)) {
+
+			this.dLayersOverlay[sKey] = this.dLayersBookmarks[sKey];
+
+		} // if is property
+	} // loop all bookmark layers
 
 	this.oLeafletLayerControl = L.control.layers(dLayersBase, this.dLayersOverlay);
 	this.oLeafletLayerControl.addTo(this.oMap);
@@ -57,7 +66,15 @@ SssSp100.buildLayers = function() {
 	this.layers.groupCurrentPos = L.layerGroup();
 	this.layers.groupGoto = L.layerGroup();
 
-	// TODO: build bookmark layers
+	for (var sBookmark in this.aBookmarksDB) {
+
+		// check if the property/key is defined in the object itself, not in parent
+		if (this.aBookmarksDB.hasOwnProperty(sBookmark)) {
+
+			this.dLayersBookmarks[sBookmark] = L.layerGroup();
+
+		} // if is own property
+	} // loop all bookmarks
 
 } // buildLayers
 
@@ -67,7 +84,13 @@ SssSp100.clearMarkers = function() {
 	this.layers.groupCurrentPos.clearLayers();
 	this.layers.groupGoto.clearLayers();
 
-	// TODO: clear bookmark layers
+	for (var sKey in this.dLayersBookmarks) {
+		if (this.dLayersBookmarks.hasOwnProperty(sKey)) {
+
+			this.dLayersBookmarks[sKey].clearLayers();
+
+		} // if is property
+	} // loop all bookmark layers
 
 } // clearMarkers
 
@@ -76,6 +99,7 @@ SssSp100.createMarkers = function() {
 
 	var iCount, lMarker;
 	var oMarker, aPos, oPos;
+	var oLayer;
 
 	var dOptions = {
 		alt: '',
@@ -127,6 +151,36 @@ SssSp100.createMarkers = function() {
 
 		}
 	} // loop all engines
+
+	for (var sBookmark in this.aBookmarksDB) {
+
+		// check if the property/key is defined in the object itself, not in parent
+		if (this.aBookmarksDB.hasOwnProperty(sBookmark)) {
+
+			oLayer = this.dLayersBookmarks[sBookmark];
+			this.dMarkersBookmarks[sBookmark] = {};
+
+			for (var sKey in this.aBookmarksDB[sBookmark]) {
+
+				if (this.aBookmarksDB[sBookmark].hasOwnProperty(sKey) {
+
+					aPos = this.aBookmarksDB[sBookmark][sKey];
+					dOptions.title = sKey + '\nr: ' + aPos['r'] + ' x: ' + aPos['x']
+						+ ' y: ' + aPos['y'] + ' z: ' + aPos['z'];
+
+					oPos = [ aPos['z'], aPos['x'] ];
+
+					oMarker = L.marker(oPos, dOptions);
+
+					oMarker.addTo(oLayer);
+
+					this.dMarkersBookmarks[sBookmark][sKey] = oMarker;
+
+				} // if is own property
+			} // loop all engines in bookmark
+
+		} // if is own property
+	} // loop all bookmarks
 
 } // createMarkers
 
