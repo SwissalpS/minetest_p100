@@ -47,7 +47,7 @@ class Maping extends App {
 
 		} // loop all engines in fleet
 
-		$aBookmarks = getFleetBookmarks($sUserID, $sFleetID);
+		$aBookmarks = $this->oData->getFleetBookmarks($sUserID, $sFleetID);
 		if ($aBookmarks) $aBookmarksDB = $aBookmarks;
 
 		$sCurrentPosDB = json_encode($aCurrentPosDB);
