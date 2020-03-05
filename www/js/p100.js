@@ -162,7 +162,7 @@ SssSp100.createMarkers = function() {
 
 			for (var sKey in this.aBookmarksDB[sBookmark]) {
 
-				if (this.aBookmarksDB[sBookmark].hasOwnProperty(sKey) {
+				if (this.aBookmarksDB[sBookmark].hasOwnProperty(sKey)) {
 
 					aPos = this.aBookmarksDB[sBookmark][sKey];
 					dOptions.title = sKey + '\nr: ' + aPos['r'] + ' x: ' + aPos['x']
