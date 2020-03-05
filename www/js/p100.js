@@ -271,7 +271,7 @@ SssSp100.initMapIn = function(sElementID) {
 		maxZoom: 6,
 		layers: [
 			this.layers.groupCurrentPos,
-			this.layers.groupGoto,
+			// this.layers.groupGoto,
 			// TODO: add bookmark layers
 		],
 		maxBounds: this.mapBoundsExtended,
