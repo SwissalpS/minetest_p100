@@ -95,7 +95,7 @@ SssSp100.createMarkers = function() {
 			dOptions.title = sKey + '<br>r: ' + aPos['r'] + ' x: ' + aPos['x']
 				+ ' y: ' + aPos['y'] + ' z: ' + aPos['z'];
 
-			oPos = [ aPos['z'], aPos['y'] ];
+			oPos = [ aPos['z'], aPos['x'] ];
 
 			oMarker = L.marker(oPos, dOptions);
 
@@ -117,7 +117,7 @@ SssSp100.createMarkers = function() {
 			dOptions.title = sKey + '<br>r: ' + aPos['r'] + ' x: ' + aPos['x']
 				+ ' y: ' + aPos['y'] + ' z: ' + aPos['z'];
 
-			oPos = [ aPos['z'], aPos['y'] ];
+			oPos = [ aPos['z'], aPos['x'] ];
 
 			oMarker = L.marker(oPos, dOptions);
 
